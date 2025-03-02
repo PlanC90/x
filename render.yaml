@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: twitter-auto-engagement-bot-frontend
+    runtime: nodejs
+    buildCommand: npm run build
+    startCommand: npm run dev
+    routes:
+      - source: /
+        destination: /
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+
+  - type: web
+    name: twitter-auto-engagement-bot-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python backend/main.py
+    routes:
+      - source: /api
+        destination: twitter-auto-engagement-bot-backend
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.10"
